@@ -16,6 +16,10 @@ Or standalone:
 
 import os
 import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import json
 import time
 import threading
@@ -69,7 +73,7 @@ class AGenticHandler(http.server.SimpleHTTPRequestHandler):
         """Serve the latest pipeline results as JSON."""
         try:
             if os.path.exists(self.results_path):
-                with open(self.results_path) as f:
+                with open(self.results_path, encoding="utf-8", errors="replace") as f:
                     data = f.read()
             else:
                 # Return placeholder while pipeline is running
@@ -145,7 +149,7 @@ class WebUIServer:
     def update_results(self, results_dict: dict):
         """Write new results to the JSON file — dashboard auto-refreshes."""
         os.makedirs(os.path.dirname(self.results_path), exist_ok=True)
-        with open(self.results_path, "w") as f:
+        with open(self.results_path, "w", encoding="utf-8") as f:
             json.dump(results_dict, f, indent=2)
 
     def stop(self):
@@ -385,7 +389,7 @@ if __name__ == "__main__":
     if os.path.exists(results_path):
         print(f"[WebUI] Using existing pipeline results from {results_path}")
     else:
-        with open(results_path, "w") as f:
+        with open(results_path, "w", encoding="utf-8") as f:
             json.dump(sample, f, indent=2)
         print(f"[WebUI] No pipeline results found — loaded sample data.")
 

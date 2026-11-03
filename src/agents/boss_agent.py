@@ -198,7 +198,7 @@ class CompilationPlan:
 # ---------------------------------------------------------------------------
 
 def load_config(config_path: str = "configs/config.yaml") -> dict:
-    with open(config_path, "r") as f:
+    with open(config_path, "r", encoding="utf-8", errors="replace") as f:
         return yaml.safe_load(f)
 
 
@@ -209,7 +209,7 @@ def load_hft_profile(profile_path: str = "configs/hft_profile.yaml") -> dict:
     """
     if not os.path.exists(profile_path):
         return {}
-    with open(profile_path, "r") as f:
+    with open(profile_path, "r", encoding="utf-8", errors="replace") as f:
         return yaml.safe_load(f)
 
 
@@ -951,7 +951,7 @@ class BossAgent:
         stem    = Path(context.source_path).stem
         ir_path = os.path.join(ir_dir, f"{stem}.ll")
         if os.path.exists(ir_path):
-            with open(ir_path, "r") as f:
+            with open(ir_path, "r", encoding="utf-8", errors="replace") as f:
                 return f.read()
         return None
 

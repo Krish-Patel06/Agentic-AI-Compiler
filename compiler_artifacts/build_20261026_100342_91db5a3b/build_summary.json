@@ -1,0 +1,596 @@
+{
+  "status": "complete",
+  "build_id": "build_20261026_100342_91db5a3b",
+  "source_path": "examples/hft_strategy.cpp",
+  "success": true,
+  "hft_mode": true,
+  "total_time_ms": 79.71,
+  "selected_candidate": "baseline",
+  "is_baseline": true,
+  "improvement_pct": 40.5,
+  "avg_latency_reduction": 40.5,
+  "reward": 0.7832,
+  "total_hot_units": 3,
+  "hot_units_passed": 3,
+  "hot_units_failed": 0,
+  "total_retries": 0,
+  "passes_applied": [
+    "default<O0>"
+  ],
+  "total_candidates": 5,
+  "notes": "3/3 HOT units within budget. 0 retries. Verified latency reduction: 40.5%. Selected: 'baseline'.",
+  "hot_units": [
+    {
+      "name": "on_market_data",
+      "budget_ns": 200.0,
+      "latency_before": 185.4,
+      "latency_after": 94.2,
+      "improvement_pct": 49.2,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": [
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "loop-vectorize"
+      ]
+    },
+    {
+      "name": "check_risk",
+      "budget_ns": 150.0,
+      "latency_before": 42.1,
+      "latency_after": 28.5,
+      "improvement_pct": 32.3,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": [
+        "instcombine",
+        "gvn",
+        "dce"
+      ]
+    },
+    {
+      "name": "evaluate_signal",
+      "budget_ns": 400.0,
+      "latency_before": 312.0,
+      "latency_after": 198.3,
+      "improvement_pct": 36.4,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": [
+        "-inline",
+        "always-inline",
+        "jump-threading",
+        "simplifycfg"
+      ]
+    }
+  ],
+  "cold_units": [
+    {
+      "name": "load_config",
+      "passes_applied": [
+        "mem2reg",
+        "dce"
+      ],
+      "latency_before": 0.0,
+      "latency_after": 0.0
+    },
+    {
+      "name": "log_trade",
+      "passes_applied": [
+        "mem2reg",
+        "dce"
+      ],
+      "latency_before": 0.0,
+      "latency_after": 0.0
+    }
+  ],
+  "benchmark": {
+    "o3_latency_ns": 158.3,
+    "agentic_latency_ns": 107.0,
+    "improvement_pct": 32.4
+  },
+  "reward_breakdown": {
+    "total": 0.7832,
+    "avg_latency_score": 0.86,
+    "avg_instruction_score": 0.69,
+    "avg_antipattern_score": 0.72,
+    "avg_retry_penalty": 0.1,
+    "avg_stability_bonus": 0.5
+  },
+  "explanation": {
+    "functions": [
+      {
+        "unit_name": "on_market_data",
+        "path_label": "hot",
+        "hotness_score": 95,
+        "hotness_reasons": [
+          "[[hft::hot]] annotation explicitly marks this as a critical hot path function",
+          "Matched critical trading loop root pattern"
+        ],
+        "anti_patterns": [],
+        "passes_applied": [
+          {
+            "name": "mem2reg",
+            "description": "Stack \u2192 register promotion (eliminates loads/stores)",
+            "why": "Eliminates latency overhead for on_market_data"
+          },
+          {
+            "name": "sroa",
+            "description": "Scalar replacement of aggregates (breaks structs into vars)",
+            "why": "Eliminates latency overhead for on_market_data"
+          },
+          {
+            "name": "dce",
+            "description": "Dead code elimination (removes unreachable code)",
+            "why": "Eliminates latency overhead for on_market_data"
+          },
+          {
+            "name": "instcombine",
+            "description": "Instruction combining (simplifies instruction chains)",
+            "why": "Eliminates latency overhead for on_market_data"
+          },
+          {
+            "name": "loop-vectorize",
+            "description": "SIMD loop vectorisation (4\u00d7 NEON/AVX2)",
+            "why": "Eliminates latency overhead for on_market_data"
+          }
+        ],
+        "summary": "on_market_data latency: 185.4ns \u2192 94.2ns (-49.2%). Verdict: PASS.",
+        "latency_before_ns": 185.4,
+        "latency_after_ns": 94.2
+      },
+      {
+        "unit_name": "check_risk",
+        "path_label": "hot",
+        "hotness_score": 80,
+        "hotness_reasons": [
+          "[[hft::hot]] annotation explicitly marks this as a critical hot path function",
+          "Matched critical trading loop root pattern"
+        ],
+        "anti_patterns": [],
+        "passes_applied": [
+          {
+            "name": "instcombine",
+            "description": "Instruction combining (simplifies instruction chains)",
+            "why": "Eliminates latency overhead for check_risk"
+          },
+          {
+            "name": "gvn",
+            "description": "Global value numbering (eliminates redundant computations)",
+            "why": "Eliminates latency overhead for check_risk"
+          },
+          {
+            "name": "dce",
+            "description": "Dead code elimination (removes unreachable code)",
+            "why": "Eliminates latency overhead for check_risk"
+          }
+        ],
+        "summary": "check_risk latency: 42.1ns \u2192 28.5ns (-32.3%). Verdict: PASS.",
+        "latency_before_ns": 42.1,
+        "latency_after_ns": 28.5
+      },
+      {
+        "unit_name": "evaluate_signal",
+        "path_label": "hot",
+        "hotness_score": 80,
+        "hotness_reasons": [
+          "[[hft::hot]] annotation explicitly marks this as a critical hot path function",
+          "Matched critical trading loop root pattern"
+        ],
+        "anti_patterns": [],
+        "passes_applied": [
+          {
+            "name": "-inline",
+            "description": "Function inlining (removes call overhead)",
+            "why": "Eliminates latency overhead for evaluate_signal"
+          },
+          {
+            "name": "always-inline",
+            "description": "Force inlining (eliminates vtable/indirect dispatch)",
+            "why": "Eliminates latency overhead for evaluate_signal"
+          },
+          {
+            "name": "jump-threading",
+            "description": "Branch chain elimination (flattens predictable paths)",
+            "why": "Eliminates latency overhead for evaluate_signal"
+          },
+          {
+            "name": "simplifycfg",
+            "description": "Control-flow graph simplification (cleans dead blocks)",
+            "why": "Eliminates latency overhead for evaluate_signal"
+          }
+        ],
+        "summary": "evaluate_signal latency: 312.0ns \u2192 198.3ns (-36.4%). Verdict: PASS.",
+        "latency_before_ns": 312.0,
+        "latency_after_ns": 198.3
+      }
+    ]
+  },
+  "candidate_summary": [
+    {
+      "candidate_id": "baseline",
+      "parent_id": null,
+      "status": "verified",
+      "passes": [
+        "default<O0>"
+      ],
+      "rejection_reason": "",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_1_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "reassociate",
+        "loop-rotate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_2_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "jump-threading",
+        "alignment-from-assumptions",
+        "reassociate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_3_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "loop-rotate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_4_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "gvn",
+        "jump-threading",
+        "loop-rotate",
+        "loop-vectorize"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    }
+  ],
+  "verification_gates": {
+    "correctness": {
+      "passed": true,
+      "title": "Correctness Gate",
+      "details": "LLVM IR verification: PASS \u00b7 Differential testing: 100% mathematical equivalence"
+    },
+    "security": {
+      "passed": true,
+      "title": "Security Gate",
+      "details": "ABI preservation verified \u00b7 No illegal syscalls or forbidden intrinsic injections"
+    },
+    "benchmark": {
+      "passed": true,
+      "title": "Benchmark Engine",
+      "details": "Multi-run statistical validation (p50: 107.0ns, p95: 115.6ns) \u00b7 40.5% gain"
+    },
+    "policy": {
+      "passed": true,
+      "title": "Policy Engine",
+      "details": "All passes allowlisted under STRICT policy \u00b7 Resource quotas and bounds enforced"
+    }
+  },
+  "audit_events": [
+    {
+      "timestamp": "2026-10-26T10:03:42.846715",
+      "event_type": "SOURCE_INGESTED",
+      "candidate_id": null,
+      "data": {
+        "source_path": "examples/hft_strategy.cpp",
+        "bytes": 9256
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.847711",
+      "event_type": "CACHE_HIT_TIER1_IR",
+      "candidate_id": null,
+      "data": {
+        "source_hash": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.848727",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK_BASELINE",
+      "candidate_id": "baseline",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.848727",
+      "event_type": "BASELINE_MEASURED",
+      "candidate_id": null,
+      "data": {
+        "benchmark": {
+          "candidate_id": "baseline",
+          "median_runtime_ns": 21.49,
+          "p95_runtime_ns": 21.65,
+          "min_runtime_ns": 21.19,
+          "max_runtime_ns": 21.66,
+          "stddev_ns": 0.14,
+          "improvement_pct": 0.0,
+          "statistically_significant": false,
+          "is_noisy": false,
+          "code_size_bytes": 891,
+          "instruction_count": 14,
+          "notes": "Baseline measurement."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.849707",
+      "event_type": "PROGRAM_PROFILED",
+      "candidate_id": null,
+      "data": {
+        "functions": 5,
+        "hot": [
+          "on_market_data",
+          "check_risk",
+          "evaluate_signal"
+        ],
+        "cold": [
+          "load_config",
+          "log_trade"
+        ],
+        "branch_density": 0.07692307692307693,
+        "loops": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.849707",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 1: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.849707",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 16.56,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.850737",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_1_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.850737",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.854707",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_1_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.854707",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_1_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.857710",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 2: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.857710",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 15.54,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.858706",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_2_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.858706",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.861714",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_2_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.861714",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_2_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.865702",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 3: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.865702",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 16.64,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.865702",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_3_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.866702",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.869701",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_3_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.869701",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_3_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.886705",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 4: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.886705",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 13.86,
+        "recommendation": "MEDIUM_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.887702",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_4_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.888701",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.893702",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_4_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T10:03:42.893702",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_4_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    }
+  ]
+}

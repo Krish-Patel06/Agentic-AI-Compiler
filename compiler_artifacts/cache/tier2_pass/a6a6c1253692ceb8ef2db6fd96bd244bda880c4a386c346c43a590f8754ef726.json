@@ -1,0 +1,7 @@
+{
+  "pass_string": "mem2reg,sroa,dce,instcombine,simplifycfg,loop-rotate",
+  "passes_count": 6,
+  "execution_time_ms": 0.05,
+  "engine": "simulated_opt",
+  "error": ""
+}

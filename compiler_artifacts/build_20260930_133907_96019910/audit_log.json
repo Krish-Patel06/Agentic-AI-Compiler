@@ -1,0 +1,212 @@
+{
+  "build_id": "build_20260930_133907_96019910",
+  "source_hash": "9601991013a7b590d1f3e893e8bdcf91c1c76913cc0c7b54f1120474931a9999",
+  "ir_hash": "4122996ec8ed344b696e8bb36284b662da43ccb80e23be7ff81a1494a51aff68",
+  "target": "native",
+  "selected_strategy": "baseline",
+  "passes_executed": [],
+  "candidates_generated": [
+    "baseline",
+    "candidate_1_irt",
+    "candidate_2_hwt",
+    "candidate_3_irt",
+    "candidate_4_hwt"
+  ],
+  "agent_proposals": [
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "instcombine",
+        "gvn",
+        "reassociate",
+        "loop-rotate",
+        "licm",
+        "indvars",
+        "loop-deletion",
+        "dce",
+        "adce"
+      ],
+      "parameters": {
+        "iteration": 1,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "2 loop(s) detected; applying invariant code motion and index variable simplification.",
+      "agent_name": "IRTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "alignment-from-assumptions",
+        "loop-unroll",
+        "tailcallelim"
+      ],
+      "parameters": {
+        "target_arch": "native",
+        "vectorize": false,
+        "cache_line_bytes": 64
+      },
+      "expected_benefit": 0.12,
+      "risk": "low",
+      "reason": "Enforcing data alignment for 64-byte cache lines. | Loop unrolling applied to reduce branch misprediction latency. | Tail call elimination to reduce stack frame overhead.",
+      "agent_name": "HWTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "mem2reg",
+        "early-cse",
+        "simplifycfg",
+        "dce"
+      ],
+      "parameters": {
+        "iteration": 3,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "2 loop(s) detected; applying invariant code motion and index variable simplification. | Iteration 3: Exploring minimal footprint scalar pipeline.",
+      "agent_name": "IRTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "alignment-from-assumptions",
+        "loop-unroll",
+        "tailcallelim"
+      ],
+      "parameters": {
+        "target_arch": "native",
+        "vectorize": false,
+        "cache_line_bytes": 64
+      },
+      "expected_benefit": 0.12,
+      "risk": "low",
+      "reason": "Enforcing data alignment for 64-byte cache lines. | Loop unrolling applied to reduce branch misprediction latency. | Tail call elimination to reduce stack frame overhead.",
+      "agent_name": "HWTunerAgent"
+    }
+  ],
+  "verification_results": {},
+  "benchmark_results": {},
+  "security_results": {},
+  "rejected_candidates": [
+    {
+      "candidate_id": "candidate_1_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.08%) did not reach statistical significance threshold (1.5%)."
+    },
+    {
+      "candidate_id": "candidate_2_hwt",
+      "verdict": "reject",
+      "rejection_code": "ERR_PERFORMANCE_REGRESSION",
+      "explanation": "Candidate introduced performance regression (0.24% slower)."
+    },
+    {
+      "candidate_id": "candidate_3_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.04%) did not reach statistical significance threshold (1.5%)."
+    },
+    {
+      "candidate_id": "candidate_4_hwt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.13%) did not reach statistical significance threshold (1.5%)."
+    }
+  ],
+  "final_artifact": "C:\\Users\\Krish Patel\\OneDrive\\Desktop\\Agentic-AI-Compiler-main\\compiler_artifacts\\build_20260930_133907_96019910\\optimized.ll",
+  "total_events": 7,
+  "timeline": [
+    {
+      "timestamp": "2026-09-30T13:39:07.926379",
+      "event_type": "SOURCE_INGESTED",
+      "candidate_id": null,
+      "data": {
+        "source_path": "examples/hft_strategy.cpp",
+        "bytes": 7333
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:07.993804",
+      "event_type": "BASELINE_MEASURED",
+      "candidate_id": null,
+      "data": {
+        "benchmark": {
+          "candidate_id": "baseline",
+          "median_runtime_ns": 21.49,
+          "p95_runtime_ns": 21.64,
+          "min_runtime_ns": 21.3,
+          "max_runtime_ns": 21.65,
+          "stddev_ns": 0.11,
+          "improvement_pct": 0.0,
+          "statistically_significant": false,
+          "is_noisy": false,
+          "code_size_bytes": 891,
+          "instruction_count": 14,
+          "notes": "Baseline measurement."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:07.995337",
+      "event_type": "PROGRAM_PROFILED",
+      "candidate_id": null,
+      "data": {
+        "functions": 5,
+        "hot": [
+          "on_market_data",
+          "check_risk",
+          "evaluate_signal"
+        ],
+        "cold": [
+          "load_config",
+          "log_trade"
+        ],
+        "branch_density": 0.07692307692307693,
+        "loops": 2
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:08.007968",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_1_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.08%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.08114451713414354
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:08.015548",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_2_hwt",
+      "data": {
+        "verdict": "reject",
+        "explanation": "Candidate introduced performance regression (0.24% slower).",
+        "improvement_pct": -0.23711139680093113
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:08.022093",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_3_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.04%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.03930731450141298
+      }
+    },
+    {
+      "timestamp": "2026-09-30T13:39:08.031163",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_4_hwt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.13%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.1256268811551901
+      }
+    }
+  ]
+}

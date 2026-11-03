@@ -532,7 +532,7 @@ class HWCompilerGymEnv:
     def reset(self, ir_path: str) -> np.ndarray:
         self._step_count = 0
         if os.path.exists(ir_path):
-            with open(ir_path) as f:
+            with open(ir_path, encoding="utf-8", errors="replace") as f:
                 self._ir_text = f.read()
         else:
             self._ir_text = "; stub IR"
@@ -759,7 +759,7 @@ class HWTunerAgent:
         ir_path_out = ir_path.replace(".ll", "_hw.ll").replace(
                       "_opt_hw", "_hw")
         try:
-            with open(ir_path_out, "w") as f:
+            with open(ir_path_out, "w", encoding="utf-8") as f:
                 f.write(ir_after)
         except Exception:
             ir_path_out = ir_path
@@ -821,7 +821,7 @@ class HWTunerAgent:
 
     def _load_config(self, path: str) -> dict:
         if os.path.exists(path):
-            with open(path) as f:
+            with open(path, encoding="utf-8", errors="replace") as f:
                 return yaml.safe_load(f)
         # Inline defaults matching updated config.yaml
         return {

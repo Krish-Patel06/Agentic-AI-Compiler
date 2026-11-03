@@ -1,0 +1,83 @@
+{
+  "build_id": "build_20261015_053004_91db5a3b",
+  "source_hash": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373",
+  "ir_hash": "4122996ec8ed344b696e8bb36284b662da43ccb80e23be7ff81a1494a51aff68",
+  "target": "native",
+  "selected_strategy": "baseline",
+  "passes_executed": [],
+  "candidates_generated": [
+    "baseline"
+  ],
+  "agent_proposals": [],
+  "verification_results": {},
+  "benchmark_results": {},
+  "security_results": {},
+  "rejected_candidates": [],
+  "final_artifact": "C:\\Users\\Krish Patel\\OneDrive\\Desktop\\Agentic-AI-Compiler-main\\compiler_artifacts\\build_20261015_053004_91db5a3b\\optimized.ll",
+  "total_events": 5,
+  "timeline": [
+    {
+      "timestamp": "2026-10-15T05:30:04.887844",
+      "event_type": "SOURCE_INGESTED",
+      "candidate_id": null,
+      "data": {
+        "source_path": "examples/hft_strategy.cpp",
+        "bytes": 9256
+      }
+    },
+    {
+      "timestamp": "2026-10-15T05:30:04.888843",
+      "event_type": "CACHE_HIT_TIER1_IR",
+      "candidate_id": null,
+      "data": {
+        "source_hash": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373"
+      }
+    },
+    {
+      "timestamp": "2026-10-15T05:30:04.891844",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK_BASELINE",
+      "candidate_id": "baseline",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-15T05:30:04.891844",
+      "event_type": "BASELINE_MEASURED",
+      "candidate_id": null,
+      "data": {
+        "benchmark": {
+          "candidate_id": "baseline",
+          "median_runtime_ns": 21.49,
+          "p95_runtime_ns": 21.65,
+          "min_runtime_ns": 21.19,
+          "max_runtime_ns": 21.66,
+          "stddev_ns": 0.14,
+          "improvement_pct": 0.0,
+          "statistically_significant": false,
+          "is_noisy": false,
+          "code_size_bytes": 891,
+          "instruction_count": 14,
+          "notes": "Baseline measurement."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-15T05:30:04.891844",
+      "event_type": "PROGRAM_PROFILED",
+      "candidate_id": null,
+      "data": {
+        "functions": 5,
+        "hot": [
+          "on_market_data",
+          "check_risk",
+          "evaluate_signal"
+        ],
+        "cold": [
+          "load_config",
+          "log_trade"
+        ],
+        "branch_density": 0.07692307692307693,
+        "loops": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,405 @@
+{
+  "build_id": "build_20261026_091900_91db5a3b",
+  "source_hash": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373",
+  "ir_hash": "4122996ec8ed344b696e8bb36284b662da43ccb80e23be7ff81a1494a51aff68",
+  "target": "native",
+  "selected_strategy": "baseline",
+  "passes_executed": [],
+  "candidates_generated": [
+    "baseline",
+    "candidate_1_irt",
+    "candidate_2_irt",
+    "candidate_3_irt",
+    "candidate_4_irt"
+  ],
+  "agent_proposals": [
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "reassociate",
+        "loop-rotate"
+      ],
+      "parameters": {
+        "iteration": 1,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "Exploration iteration 1: Investigating novel pass phase ordering to avoid stagnation.",
+      "agent_name": "IRTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "jump-threading",
+        "alignment-from-assumptions",
+        "reassociate"
+      ],
+      "parameters": {
+        "iteration": 2,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "Exploration iteration 2: Investigating novel pass phase ordering to avoid stagnation.",
+      "agent_name": "IRTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "loop-rotate"
+      ],
+      "parameters": {
+        "iteration": 3,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "Exploration iteration 3: Investigating novel pass phase ordering to avoid stagnation.",
+      "agent_name": "IRTunerAgent"
+    },
+    {
+      "action": "propose_pass_pipeline",
+      "passes": [
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "gvn",
+        "jump-threading",
+        "loop-rotate",
+        "loop-vectorize"
+      ],
+      "parameters": {
+        "iteration": 4,
+        "optimization_goal": "latency_reduction"
+      },
+      "expected_benefit": 0.27,
+      "risk": "low",
+      "reason": "Exploration iteration 4: Investigating novel pass phase ordering to avoid stagnation.",
+      "agent_name": "IRTunerAgent"
+    }
+  ],
+  "verification_results": {},
+  "benchmark_results": {},
+  "security_results": {},
+  "rejected_candidates": [
+    {
+      "candidate_id": "candidate_1_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%)."
+    },
+    {
+      "candidate_id": "candidate_2_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%)."
+    },
+    {
+      "candidate_id": "candidate_3_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%)."
+    },
+    {
+      "candidate_id": "candidate_4_irt",
+      "verdict": "neutral",
+      "rejection_code": "NEUTRAL_NO_SIGNIFICANT_IMPROVEMENT",
+      "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%)."
+    }
+  ],
+  "final_artifact": "c:\\Users\\Krish Patel\\OneDrive\\Desktop\\Agentic-AI-Compiler-main\\compiler_artifacts\\build_20261026_091900_91db5a3b\\optimized.ll",
+  "total_events": 29,
+  "timeline": [
+    {
+      "timestamp": "2026-10-26T09:19:00.367912",
+      "event_type": "SOURCE_INGESTED",
+      "candidate_id": null,
+      "data": {
+        "source_path": "examples/hft_strategy.cpp",
+        "bytes": 9256
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.367912",
+      "event_type": "CACHE_HIT_TIER1_IR",
+      "candidate_id": null,
+      "data": {
+        "source_hash": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.368914",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK_BASELINE",
+      "candidate_id": "baseline",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.368914",
+      "event_type": "BASELINE_MEASURED",
+      "candidate_id": null,
+      "data": {
+        "benchmark": {
+          "candidate_id": "baseline",
+          "median_runtime_ns": 21.49,
+          "p95_runtime_ns": 21.65,
+          "min_runtime_ns": 21.19,
+          "max_runtime_ns": 21.66,
+          "stddev_ns": 0.14,
+          "improvement_pct": 0.0,
+          "statistically_significant": false,
+          "is_noisy": false,
+          "code_size_bytes": 891,
+          "instruction_count": 14,
+          "notes": "Baseline measurement."
+        }
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.369910",
+      "event_type": "PROGRAM_PROFILED",
+      "candidate_id": null,
+      "data": {
+        "functions": 5,
+        "hot": [
+          "on_market_data",
+          "check_risk",
+          "evaluate_signal"
+        ],
+        "cold": [
+          "load_config",
+          "log_trade"
+        ],
+        "branch_density": 0.07692307692307693,
+        "loops": 2
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.369910",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 1: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.369910",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 16.56,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.369910",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_1_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.369910",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.377786",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_1_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.377786",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_1_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.431145",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 2: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.431145",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 15.54,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.433143",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_2_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.433143",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.453163",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_2_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.453163",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_2_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.459171",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 3: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.459171",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 16.64,
+        "recommendation": "HIGH_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.460293",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_3_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.460293",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.464304",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_3_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.464304",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_3_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.474109",
+      "event_type": "STRATEGY_DECIDED",
+      "candidate_id": null,
+      "data": {
+        "mode": "exploration",
+        "novelty": 0.85,
+        "rationale": "Exploration iteration 4: Investigating novel pass phase ordering to avoid stagnation."
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.474109",
+      "event_type": "PROPOSAL_SCORED",
+      "candidate_id": null,
+      "data": {
+        "ev": 13.86,
+        "recommendation": "MEDIUM_PRIORITY",
+        "predicted_gain": 27.0,
+        "risk_factor": 0.1
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.474109",
+      "event_type": "CACHE_HIT_TIER2_PASS",
+      "candidate_id": null,
+      "data": {
+        "candidate": "candidate_4_irt"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.474109",
+      "event_type": "RISK_ROUTED",
+      "candidate_id": null,
+      "data": {
+        "strategy": "[RiskRouter] Tier=HIGH | Required Gates: IRValidator, Differential, Adversarial, SemanticEquiv, CanaryStress, Sanitizer"
+      }
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.479129",
+      "event_type": "CACHE_HIT_TIER3_BENCHMARK",
+      "candidate_id": "candidate_4_irt",
+      "data": {}
+    },
+    {
+      "timestamp": "2026-10-26T09:19:00.479129",
+      "event_type": "CANDIDATE_EVALUATED",
+      "candidate_id": "candidate_4_irt",
+      "data": {
+        "verdict": "neutral",
+        "explanation": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+        "improvement_pct": 0.0
+      }
+    }
+  ]
+}

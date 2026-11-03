@@ -1,0 +1,233 @@
+{
+  "mem2reg->sroa": {
+    "total_executions": 67,
+    "successes": 9,
+    "total_speedup_pct": 185.0,
+    "total_compile_ms": 80.29,
+    "total_code_size_delta_pct": 865.79,
+    "success_rate": 0.134,
+    "avg_speedup": 2.76,
+    "avg_compile_ms": 1.2,
+    "synergy_score": 6.1
+  },
+  "sroa->dce": {
+    "total_executions": 67,
+    "successes": 9,
+    "total_speedup_pct": 120.0,
+    "total_compile_ms": 50.29,
+    "total_code_size_delta_pct": 865.49,
+    "success_rate": 0.134,
+    "avg_speedup": 1.79,
+    "avg_compile_ms": 0.8,
+    "synergy_score": 4.66
+  },
+  "sroa->instcombine": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 160.0,
+    "total_compile_ms": 120.0,
+    "total_code_size_delta_pct": -0.4,
+    "success_rate": 0.9,
+    "avg_speedup": 16.0,
+    "avg_compile_ms": 12.0,
+    "synergy_score": 36.9
+  },
+  "instcombine->loop-vectorize": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 280.0,
+    "total_compile_ms": 250.0,
+    "total_code_size_delta_pct": 0.5,
+    "success_rate": 0.9,
+    "avg_speedup": 28.0,
+    "avg_compile_ms": 25.0,
+    "synergy_score": 54.25
+  },
+  "loop-rotate->licm": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 140.0,
+    "total_compile_ms": 100.0,
+    "total_code_size_delta_pct": -0.2,
+    "success_rate": 0.9,
+    "avg_speedup": 14.0,
+    "avg_compile_ms": 10.0,
+    "synergy_score": 34.0
+  },
+  "-inline->simplifycfg": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 150.0,
+    "total_compile_ms": 80.0,
+    "total_code_size_delta_pct": -0.6,
+    "success_rate": 0.9,
+    "avg_speedup": 15.0,
+    "avg_compile_ms": 8.0,
+    "synergy_score": 35.6
+  },
+  "always-inline->jump-threading": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 190.0,
+    "total_compile_ms": 100.0,
+    "total_code_size_delta_pct": -0.3,
+    "success_rate": 0.9,
+    "avg_speedup": 19.0,
+    "avg_compile_ms": 10.0,
+    "synergy_score": 41.5
+  },
+  "gvn->dce": {
+    "total_executions": 10,
+    "successes": 9,
+    "total_speedup_pct": 100.0,
+    "total_compile_ms": 40.0,
+    "total_code_size_delta_pct": -0.5,
+    "success_rate": 0.9,
+    "avg_speedup": 10.0,
+    "avg_compile_ms": 4.0,
+    "synergy_score": 28.3
+  },
+  "alignment-from-assumptions->loop-unroll": {
+    "total_executions": 10,
+    "successes": 8,
+    "total_speedup_pct": 220.0,
+    "total_compile_ms": 180.0,
+    "total_code_size_delta_pct": 1.0,
+    "success_rate": 0.8,
+    "avg_speedup": 22.0,
+    "avg_compile_ms": 18.0,
+    "synergy_score": 44.1
+  },
+  "dce->instcombine": {
+    "total_executions": 57,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.29,
+    "total_code_size_delta_pct": 866.29,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "instcombine->reassociate": {
+    "total_executions": 15,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.15,
+    "total_code_size_delta_pct": 171.75,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "reassociate->loop-rotate": {
+    "total_executions": 15,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.15,
+    "total_code_size_delta_pct": 171.75,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "instcombine->simplifycfg": {
+    "total_executions": 28,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.14,
+    "total_code_size_delta_pct": 386.54,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "simplifycfg->jump-threading": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 226.24,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "jump-threading->alignment-from-assumptions": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 226.24,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "alignment-from-assumptions->reassociate": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 226.24,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "simplifycfg->loop-rotate": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.14,
+    "total_code_size_delta_pct": 160.3,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "instcombine->gvn": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 308.0,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "gvn->jump-threading": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 308.0,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "jump-threading->loop-rotate": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 308.0,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  },
+  "loop-rotate->loop-vectorize": {
+    "total_executions": 14,
+    "successes": 0,
+    "total_speedup_pct": 0.0,
+    "total_compile_ms": 0.0,
+    "total_code_size_delta_pct": 308.0,
+    "success_rate": 0.0,
+    "avg_speedup": 0.0,
+    "avg_compile_ms": 0.0,
+    "synergy_score": -0.0
+  }
+}

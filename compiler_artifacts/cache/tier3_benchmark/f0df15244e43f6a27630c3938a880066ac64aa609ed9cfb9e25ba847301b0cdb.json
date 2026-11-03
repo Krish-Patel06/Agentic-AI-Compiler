@@ -1,0 +1,14 @@
+{
+  "candidate_id": "baseline",
+  "median_runtime_ns": 21.49,
+  "p95_runtime_ns": 21.65,
+  "min_runtime_ns": 21.19,
+  "max_runtime_ns": 21.66,
+  "stddev_ns": 0.14,
+  "improvement_pct": 0.0,
+  "statistically_significant": false,
+  "is_noisy": false,
+  "code_size_bytes": 891,
+  "instruction_count": 14,
+  "notes": "Baseline measurement."
+}

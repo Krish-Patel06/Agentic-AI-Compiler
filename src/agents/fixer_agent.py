@@ -350,7 +350,7 @@ class LatencyAntiPatternScanner:
 
     def scan_file(self, source_path: str) -> list[AntiPattern]:
         """Scans an entire source file."""
-        with open(source_path, "r") as f:
+        with open(source_path, "r", encoding="utf-8", errors="replace") as f:
             source = f.read()
         return self.scan_snippet(source, source_path)
 

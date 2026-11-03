@@ -30,6 +30,10 @@ All config read from configs/config.yaml.
 import os
 import re
 import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import time
 import yaml
 import json
@@ -260,7 +264,7 @@ class Pipeline:
                 from agents.boss_agent import SimpleIREncoder
                 import os as _os
                 if _os.path.exists(ir_path):
-                    _emb = SimpleIREncoder().encode(open(ir_path).read())
+                    _emb = SimpleIREncoder().encode(open(ir_path, encoding="utf-8", errors="replace").read())
                     _similar = self.store.query_similar(_emb, top_k=3)
                     if _similar:
                         # Count how many times similar IR has been seen
@@ -568,7 +572,7 @@ class Pipeline:
 
         # Try reading source file
         if os.path.exists(source_path):
-            with open(source_path) as f:
+            with open(source_path, encoding="utf-8", errors="replace") as f:
                 source_text = f.read()
 
         # Extract function signatures from source using regex
@@ -609,7 +613,7 @@ class Pipeline:
 
         # Fallback: extract function names from IR
         if not units and os.path.exists(ir_path):
-            with open(ir_path) as f:
+            with open(ir_path, encoding="utf-8", errors="replace") as f:
                 ir_text = f.read()
             for m in re.finditer(r'^define\s+\S+\s+@(\w+)\s*\(', ir_text, re.MULTILINE):
                 fn_name = m.group(1)
@@ -658,7 +662,7 @@ class Pipeline:
             stub = _STUB_IR_ORDER_BOOK
         else:
             stub = _STUB_IR_TEMPLATE
-        with open(ir_path, "w") as f:
+        with open(ir_path, "w", encoding="utf-8") as f:
             f.write(stub)
         self._log(f"  (Stub IR — clang not available or source not found)")
         return ir_path
@@ -754,7 +758,7 @@ class Pipeline:
                 ir_path = getattr(result, "ir_path", "")
                 import os
                 if ir_path and os.path.exists(ir_path):
-                    embedding = SimpleIREncoder().encode(open(ir_path).read())
+                    embedding = SimpleIREncoder().encode(open(ir_path, encoding="utf-8", errors="replace").read())
                 else:
                     embedding = np.zeros(256, dtype=np.float32)
             except Exception:
@@ -904,7 +908,7 @@ class Pipeline:
 
     def _load_config(self, path: str) -> dict:
         if os.path.exists(path):
-            with open(path) as f:
+            with open(path, encoding="utf-8", errors="replace") as f:
                 return yaml.safe_load(f)
         return {}
 
@@ -1325,7 +1329,7 @@ def _write_results_json(result, pipeline, web_server=None):
         )
 
         os.makedirs(os.path.dirname(RESULTS_JSON_PATH), exist_ok=True)
-        with open(RESULTS_JSON_PATH, "w") as f:
+        with open(RESULTS_JSON_PATH, "w", encoding="utf-8") as f:
             json.dump(d, f, indent=2)
         print(f"[Pipeline] Results written to {RESULTS_JSON_PATH}")
 
@@ -1445,10 +1449,10 @@ def run_benchmark(config_path: str = "configs/config.yaml",
         _write_results_json(ag_result, pipeline, web_server)
         # Patch in benchmark data
         try:
-            with open(RESULTS_JSON_PATH) as f:
+            with open(RESULTS_JSON_PATH, encoding="utf-8", errors="replace") as f:
                 d = json.load(f)
             d["benchmark"] = bm_data
-            with open(RESULTS_JSON_PATH, "w") as f:
+            with open(RESULTS_JSON_PATH, "w", encoding="utf-8") as f:
                 json.dump(d, f, indent=2)
         except Exception:
             pass

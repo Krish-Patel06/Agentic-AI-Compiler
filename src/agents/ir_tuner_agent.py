@@ -400,7 +400,7 @@ class CompilerGymEnv:
 
         # Stub mode — read IR from disk and fake observations
         if os.path.exists(ir_path):
-            with open(ir_path) as f:
+            with open(ir_path, encoding="utf-8", errors="replace") as f:
                 self._ir_text = f.read()
         else:
             self._ir_text = "; empty stub IR"
@@ -884,7 +884,7 @@ class IRTunerAgent:
         # Write output IR
         ir_path_out = ir_path.replace(".ll", "_opt.ll")
         try:
-            with open(ir_path_out, "w") as f:
+            with open(ir_path_out, "w", encoding="utf-8") as f:
                 f.write(ir_after)
         except Exception:
             ir_path_out = ir_path   # fallback — return same path
@@ -949,7 +949,7 @@ class IRTunerAgent:
 
     def _load_config(self, path: str) -> dict:
         if os.path.exists(path):
-            with open(path) as f:
+            with open(path, encoding="utf-8", errors="replace") as f:
                 return yaml.safe_load(f)
         return {}
 

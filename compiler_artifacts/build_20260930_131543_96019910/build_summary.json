@@ -1,0 +1,12 @@
+{
+  "build_id": "build_20260930_131543_96019910",
+  "source": "examples/hft_strategy.cpp",
+  "selected_candidate": "baseline",
+  "is_baseline": true,
+  "improvement_pct": 0.0,
+  "passes_applied": [
+    "default<O0>"
+  ],
+  "total_candidates": 5,
+  "total_time_ms": 109.7
+}

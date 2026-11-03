@@ -1,0 +1,158 @@
+{
+  "build_id": "build_20261009_123931_91db5a3b",
+  "timestamp_utc": "2026-10-09T12:39:31Z",
+  "compiler_info": {
+    "compiler": "clang/llvm",
+    "frontend": "SecureCompilerClangWrapper",
+    "host_os": "nt",
+    "security_spec": "Zero-Trust Agentic Architecture v2.0"
+  },
+  "source_input": {
+    "source_path": "examples/hft_strategy.cpp",
+    "source_sha256": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373",
+    "source_basename": "hft_strategy.cpp"
+  },
+  "compilation_parameters": {
+    "target_architecture": "native",
+    "baseline_opt_level": "O3",
+    "total_compilation_time_ms": 373.83
+  },
+  "baseline": {
+    "candidate_id": "candidate_0_baseline",
+    "ir_sha256": "4122996ec8ed344b696e8bb36284b662da43ccb80e23be7ff81a1494a51aff68",
+    "status": "baseline_reference"
+  },
+  "decision": {
+    "selected_candidate_id": "baseline",
+    "is_baseline_fallback": true,
+    "verdict": "FALLBACK_BASELINE",
+    "measured_improvement_pct": 0.0
+  },
+  "pass_pipeline": [
+    "default<O0>"
+  ],
+  "candidate_trace": [
+    {
+      "candidate_id": "baseline",
+      "parent_id": null,
+      "status": "verified",
+      "passes": [
+        "default<O0>"
+      ],
+      "rejection_reason": "",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_1_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "reassociate",
+        "loop-rotate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_2_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "jump-threading",
+        "alignment-from-assumptions",
+        "reassociate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_3_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "simplifycfg",
+        "loop-rotate"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    },
+    {
+      "candidate_id": "candidate_4_irt",
+      "parent_id": "baseline",
+      "status": "rolled_back",
+      "passes": [
+        "default<O0>",
+        "mem2reg",
+        "sroa",
+        "dce",
+        "instcombine",
+        "gvn",
+        "jump-threading",
+        "loop-rotate",
+        "loop-vectorize"
+      ],
+      "rejection_reason": "Improvement (0.00%) did not reach statistical significance threshold (1.5%).",
+      "improvement_pct": 0.0
+    }
+  ],
+  "gate_verifications": {
+    "ir_validation": {
+      "passed": true,
+      "fingerprint": "4122996ec8ed344b696e8bb36284b662da43ccb80e23be7ff81a1494a51aff68"
+    },
+    "correctness": {
+      "passed": true,
+      "standard_tests": 9
+    },
+    "security": {
+      "passed": true
+    },
+    "semantic_equivalence": {
+      "checked": true,
+      "equivalent": true,
+      "confidence": 1.0,
+      "violations": []
+    },
+    "canary_stage": {
+      "checked": true,
+      "passed": true,
+      "iterations": 250,
+      "drift_max": 0.0
+    }
+  },
+  "release_signing": {
+    "signed": true,
+    "signature": "3650872163356349708486cf38f62ebadd636ea363ba923560a2eb1dadb585dd",
+    "key_id": "compiler-enclave-key-v1",
+    "timestamp_utc": "2026-10-09T12:39:31Z",
+    "certificate": {
+      "key_id": "compiler-enclave-key-v1",
+      "artifact_sha256": "0b89734db80f2fb0c21906523b8315db34e5897c12691a6dcdee4031a3539a8a",
+      "manifest_sha256": "69ab8dabcdaa27cf9eae8374c7ea6cb343c13d75a2b2ec843230c1a278223285",
+      "decision_verdict": "baseline_fallback",
+      "timestamp_epoch": 1791549571.6850233,
+      "status": "RELEASE_AUTHORIZED"
+    }
+  },
+  "replay_instructions": {
+    "cli_command": "python run_secure_compiler.py examples/hft_strategy.cpp --target native --opt O3 --replay-build build_20261009_123931_91db5a3b",
+    "passes_flag": "default<O0>",
+    "reproducibility": "deterministic"
+  }
+}
