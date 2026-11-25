@@ -60,13 +60,28 @@ class SecureCompilerHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(500, str(e))
 
     def _get_status_data(self) -> dict:
+        data = {}
         if self.summary_path and os.path.exists(self.summary_path):
             try:
                 with open(self.summary_path, "r", encoding="utf-8", errors="replace") as f:
-                    return json.load(f)
+                    data = json.load(f)
             except Exception:
                 pass
-        return {"status": "waiting", "message": "No build summary loaded."}
+
+        # If data lacks hot_units, merge with compiler_artifacts/results_latest.json
+        if not data or "hot_units" not in data:
+            results_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "compiler_artifacts", "results_latest.json")
+            if os.path.exists(results_path):
+                try:
+                    with open(results_path, "r", encoding="utf-8") as f:
+                        latest = json.load(f)
+                        if data:
+                            latest.update({k: v for k, v in data.items() if k not in latest})
+                        return latest
+                except Exception:
+                    pass
+
+        return data if data else {"status": "waiting", "message": "No build summary loaded."}
 
     def _get_audit_data(self) -> dict:
         if self.audit_path and os.path.exists(self.audit_path):

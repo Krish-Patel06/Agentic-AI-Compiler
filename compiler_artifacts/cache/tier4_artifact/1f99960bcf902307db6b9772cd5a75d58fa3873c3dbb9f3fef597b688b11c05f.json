@@ -1,6 +1,6 @@
 {
-  "build_id": "build_20261026_104805_91db5a3b",
-  "timestamp_utc": "2026-10-26T10:48:06Z",
+  "build_id": "build_20261105_025557_52fbb150",
+  "timestamp_utc": "2026-11-05T02:55:57Z",
   "compiler_info": {
     "compiler": "clang/llvm",
     "frontend": "SecureCompilerClangWrapper",
@@ -9,13 +9,13 @@
   },
   "source_input": {
     "source_path": "examples/hft_strategy.cpp",
-    "source_sha256": "91db5a3b8a4b0ad7d3f157b6b3e6b8295d4a9d4a64345091f6baff05e625e373",
+    "source_sha256": "52fbb15011e6a7cbbf43cb65e3fd0da13eb461517e95c858922d49ec2b199ce4",
     "source_basename": "hft_strategy.cpp"
   },
   "compilation_parameters": {
     "target_architecture": "native",
     "baseline_opt_level": "O3",
-    "total_compilation_time_ms": 158.71
+    "total_compilation_time_ms": 252.89
   },
   "baseline": {
     "candidate_id": "candidate_0_baseline",
@@ -138,20 +138,20 @@
   },
   "release_signing": {
     "signed": true,
-    "signature": "21209a2ab5c5eaeb145606699785a0e02d9f5087cf11e6c82ff7abbd183dcde0",
+    "signature": "97edf1a355caedf9245731d563c9f233d8d3d4dcf95dcbe7b8e1a932bc410ff8",
     "key_id": "compiler-enclave-key-v1",
-    "timestamp_utc": "2026-10-26T10:48:06Z",
+    "timestamp_utc": "2026-11-05T02:55:57Z",
     "certificate": {
       "key_id": "compiler-enclave-key-v1",
       "artifact_sha256": "0b89734db80f2fb0c21906523b8315db34e5897c12691a6dcdee4031a3539a8a",
-      "manifest_sha256": "c357e30e400aa89cadb6023a9464ff51f5cf0e220bc56404616c81c1afe1a6f5",
+      "manifest_sha256": "e3f651a4be7829a4353608078a19ee9777e0be620091dffad742da46d4043725",
       "decision_verdict": "baseline_fallback",
-      "timestamp_epoch": 1793011686.0945606,
+      "timestamp_epoch": 1793847357.4136527,
       "status": "RELEASE_AUTHORIZED"
     }
   },
   "replay_instructions": {
-    "cli_command": "python run_secure_compiler.py examples/hft_strategy.cpp --target native --opt O3 --replay-build build_20261026_104805_91db5a3b",
+    "cli_command": "python run_secure_compiler.py examples/hft_strategy.cpp --target native --opt O3 --replay-build build_20261105_025557_52fbb150",
     "passes_flag": "default<O0>",
     "reproducibility": "deterministic"
   }

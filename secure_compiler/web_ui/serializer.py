@@ -58,23 +58,43 @@ AP_META = {
 }
 
 
+def extract_function_body(func_name: str, source_text: str) -> str:
+    """Accurately extracts a C++ function's body using balanced brace parsing."""
+    pattern = rf'\b{func_name}\b\s*\([^{{]*\{{'
+    m = re.search(pattern, source_text)
+    if not m:
+        return ""
+    start = m.end() - 1
+    depth = 0
+    end = start
+    for i in range(start, len(source_text)):
+        if source_text[i] == '{':
+            depth += 1
+        elif source_text[i] == '}':
+            depth -= 1
+            if depth == 0:
+                end = i
+                break
+    return source_text[start+1:end]
+
+
 def detect_function_anti_patterns(func_name: str, source_text: str) -> List[str]:
     """Scan source code slice for HFT anti-patterns."""
     aps = []
     if not source_text:
         return aps
 
-    # Extract function block if possible
-    pattern = rf'(?:\[\[hft::hot\]\][\s\w:*&]+?\b{func_name}\b[^{{]*{{)(.*?)(?:\n\}}|\n\w+\s+\w+\()'
-    match = re.search(pattern, source_text, re.DOTALL)
-    body = match.group(1) if match else source_text
+    body = extract_function_body(func_name, source_text)
+    if not body:
+        return aps
 
     # LAP-001: dynamic allocation
     if re.search(r'\b(new\s+\w|malloc\s*\(|make_unique|make_shared)', body):
         aps.append("LAP-001:critical:Heap Allocation (dynamic allocation on hot path)")
 
-    # LAP-002: virtual dispatch
-    if re.search(r'\b(virtual\s+\w|override\b|dynamic_cast)', body) or ("SignalBase" in body and func_name == "evaluate_signal"):
+    # LAP-002: virtual dispatch (virtual keyword or override or vtable invocation; CRTP is static)
+    is_crtp = "static_cast" in body or "Derived" in source_text or "CRTP" in source_text
+    if re.search(r'\b(virtual\s+\w|override\b)', body) or (re.search(r'->\w+\s*\(', body) and not is_crtp):
         aps.append("LAP-002:critical:Virtual Dispatch (vtable lookup overhead)")
 
     # LAP-003: exceptions
@@ -86,11 +106,11 @@ def detect_function_anti_patterns(func_name: str, source_text: str) -> List[str]
         aps.append("LAP-004:critical:Blocking Synchronisation (mutex lock on hot path)")
 
     # LAP-005: syscall / I/O
-    if re.search(r'\b(printf\s*\(|std::cout|write\s*\(|send\s*\()', body):
+    if re.search(r'\b(printf\s*\(|fprintf\s*\(|std::cout|std::cerr|write\s*\(|send\s*\(|puts\s*\()', body):
         aps.append("LAP-005:major:System Call / I/O (kernel transition overhead)")
 
     # LAP-006: indirect call
-    if re.search(r'\b(std::function|std::bind|\(\*\w+\)\s*\()', body):
+    if re.search(r'\b(std::function|std::bind|\(\*\w+\)\s*\()', body) or re.search(r'\[\s*&\s*\]\s*\(', body):
         aps.append("LAP-006:major:Indirect Function Call (indirect dispatch)")
 
     # LAP-007: atomics
@@ -105,8 +125,8 @@ def detect_function_anti_patterns(func_name: str, source_text: str) -> List[str]
     if re.search(r'\b(packed|unaligned)', body):
         aps.append("LAP-009:minor:Unaligned Memory Access (split cache-line reads)")
 
-    # LAP-010: branch heavy
-    if len(re.findall(r'\bif\s*\(|\bswitch\s*\(', body)) >= 2:
+    # LAP-010: branch heavy (switch or nested else-if chains)
+    if re.search(r'\bswitch\s*\(', body) or re.search(r'if\s*\(.*\)\s*\{[^}]*\}\s*else\s*if', body):
         aps.append("LAP-010:minor:Branch-Heavy Logic (branch predictor pressure)")
 
     return aps

@@ -1,0 +1,76 @@
+{
+  "version": "2.0.0",
+  "policy_name": "ZeroTrustAuthoritativePolicy",
+  "security_level": "strict",
+  "growth_limits": {
+    "max_ir_growth_pct": 25.0,
+    "max_binary_growth_pct": 15.0
+  },
+  "benchmark_limits": {
+    "min_statistical_margin_pct": 1.5,
+    "min_sigma_factor": 2.0,
+    "warmup_iterations": 3,
+    "measurement_iterations": 10,
+    "max_acceptable_cv": 0.15
+  },
+  "resource_quotas": {
+    "max_wall_time_sec": 60.0,
+    "max_memory_mb": 1024,
+    "max_candidate_branches": 8,
+    "max_retries_per_unit": 3,
+    "max_agent_calls": 12,
+    "max_ir_instruction_count": 25000,
+    "max_functions_count": 200,
+    "max_basic_blocks_per_function": 500,
+    "max_loop_nesting_depth": 8
+  },
+  "pass_allowlist": [
+    "mem2reg",
+    "sroa",
+    "instcombine",
+    "simplifycfg",
+    "dce",
+    "adce",
+    "gvn",
+    "early-cse",
+    "reassociate",
+    "loop-rotate",
+    "loop-unroll",
+    "loop-vectorize",
+    "slp-vectorizer",
+    "licm",
+    "indvars",
+    "jump-threading",
+    "correlated-propagation",
+    "alignment-from-assumptions",
+    "inline",
+    "always-inline",
+    "tailcallelim",
+    "constmerge",
+    "ipsccp",
+    "deadargelim"
+  ],
+  "forbidden_passes": [
+    "strip",
+    "strip-debug",
+    "mergefunc",
+    "internalize",
+    "extract-blocks",
+    "metarenamer",
+    "bugpoint",
+    "insert-gcov-profiling",
+    "instrprof"
+  ],
+  "forbidden_intrinsics": [
+    "llvm.trap",
+    "llvm.debugtrap",
+    "llvm.frameaddress",
+    "llvm.returnaddress"
+  ],
+  "sandbox_rules": {
+    "network": "none",
+    "filesystem": "minimal_temp_only",
+    "allow_root": false,
+    "allow_raw_shell": false
+  }
+}

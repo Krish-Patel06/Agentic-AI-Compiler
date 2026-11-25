@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TestVectorsProposal",
+  "type": "object",
+  "required": ["agent", "target_function", "test_cases"],
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "type": "string",
+      "enum": ["test_generator"]
+    },
+    "target_function": {
+      "type": "string",
+      "pattern": "^[a-zA-Z_][a-zA-Z0-9_]{0,63}$"
+    },
+    "test_cases": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": ["name", "category", "inputs"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,64}$"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "boundary",
+              "adversarial_overflow",
+              "adversarial_nan_inf",
+              "adversarial_aliasing",
+              "adversarial_ub",
+              "adversarial_control_flow"
+            ]
+          },
+          "inputs": {
+            "type": "object",
+            "maxProperties": 16,
+            "additionalProperties": {
+              "type": ["number", "boolean", "string"]
+            }
+          },
+          "expected_output": {
+            "type": ["number", "boolean", "string", "null"]
+          },
+          "tolerance": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0
+          }
+        }
+      }
+    }
+  }
+}

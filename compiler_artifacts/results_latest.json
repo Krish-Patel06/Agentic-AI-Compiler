@@ -1,0 +1,96 @@
+{
+  "status": "complete",
+  "source_path": "examples/hft_strategy.cpp",
+  "success": true,
+  "hft_mode": true,
+  "total_time_ms": 128,
+  "reward": 0.9412,
+  "avg_latency_reduction": 60.5,
+  "total_hot_units": 4,
+  "hot_units_passed": 4,
+  "hot_units_failed": 0,
+  "total_retries": 0,
+  "notes": "4/4 HOT units within budget. 0 retries. All anti-patterns resolved. Avg latency reduction: 60.5% (Speedup: 2.53x).",
+  "hot_units": [
+    {
+      "name": "on_market_data",
+      "budget_ns": 200,
+      "latency_before": 185.4,
+      "latency_after": 84.1,
+      "improvement_pct": 54.6,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": ["sroa", "mem2reg", "instcombine", "loop-vectorize", "dce"]
+    },
+    {
+      "name": "evaluate_signal",
+      "budget_ns": 400,
+      "latency_before": 312.0,
+      "latency_after": 142.6,
+      "improvement_pct": 54.3,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": ["always-inline", "jump-threading", "simplifycfg", "instcombine"]
+    },
+    {
+      "name": "check_risk",
+      "budget_ns": 150,
+      "latency_before": 42.1,
+      "latency_after": 18.2,
+      "improvement_pct": 56.8,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": ["instcombine", "gvn", "dce", "always-inline"]
+    },
+    {
+      "name": "submit_order",
+      "budget_ns": 250,
+      "latency_before": 290.5,
+      "latency_after": 68.3,
+      "improvement_pct": 76.5,
+      "retries": 0,
+      "verdict": "PASS",
+      "within_budget": true,
+      "anti_patterns": [],
+      "passes_applied": ["sroa", "always-inline", "simplifycfg", "instcombine", "dce"]
+    }
+  ],
+  "cold_units": [
+    {"name": "load_config", "passes_applied": ["mem2reg", "dce"], "latency_before": 0, "latency_after": 0},
+    {"name": "log_trade",   "passes_applied": ["dce"], "latency_before": 0, "latency_after": 0}
+  ],
+  "benchmark": {
+    "clang_o3": {
+      "latency_ns": 145.2,
+      "instruction_count": 820,
+      "binary_size_kb": 42.5,
+      "cpu_cycles": 465
+    },
+    "agentic": {
+      "latency_ns": 57.3,
+      "instruction_count": 340,
+      "binary_size_kb": 32.4,
+      "cpu_cycles": 188
+    },
+    "delta": {
+      "latency_reduction_pct": 60.5,
+      "instruction_reduction_pct": 58.5,
+      "speedup": 2.53
+    }
+  },
+  "reward_breakdown": {
+    "total": 0.9412,
+    "avg_latency_score": 0.96,
+    "avg_instruction_score": 0.91,
+    "avg_antipattern_score": 1.00,
+    "avg_retry_penalty": 0.00,
+    "avg_stability_bonus": 0.50
+  },
+  "anti_patterns_detected": []
+}

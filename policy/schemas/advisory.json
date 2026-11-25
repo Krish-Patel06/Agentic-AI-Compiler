@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SecurityAdvisory",
+  "type": "object",
+  "required": [
+    "agent",
+    "candidate_id",
+    "risk",
+    "flags",
+    "recommendation",
+    "reason"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "type": "string",
+      "enum": ["security_analyzer"]
+    },
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]{1,64}$"
+    },
+    "risk": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "flags": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "string",
+        "maxLength": 128
+      }
+    },
+    "recommendation": {
+      "type": "string",
+      "enum": ["PROCEED", "REQUIRE_ADVERSARIAL", "REJECT"]
+    },
+    "reason": {
+      "type": "string",
+      "maxLength": 512
+    }
+  }
+}

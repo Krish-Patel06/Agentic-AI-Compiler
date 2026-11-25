@@ -6,8 +6,42 @@ Measures median, p95 tail latency, variance, memory, code size, and detects nois
 
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
-import numpy as np
 import time
+
+try:
+    import numpy as np
+except ImportError:
+    import statistics
+    import math
+
+    class _NumpyFallback:
+        @staticmethod
+        def median(a):
+            return float(statistics.median(a)) if a else 0.0
+
+        @staticmethod
+        def percentile(a, q):
+            if not a:
+                return 0.0
+            s = sorted(a)
+            k = (len(s) - 1) * (q / 100.0)
+            f = math.floor(k)
+            c = math.ceil(k)
+            if f == c:
+                return float(s[int(k)])
+            d0 = s[int(f)] * (c - k)
+            d1 = s[int(c)] * (k - f)
+            return float(d0 + d1)
+
+        @staticmethod
+        def std(a):
+            return float(statistics.stdev(a)) if len(a) > 1 else 0.0
+
+        @staticmethod
+        def var(a):
+            return float(statistics.variance(a)) if len(a) > 1 else 0.0
+
+    np = _NumpyFallback()
 
 from ..optimizer.candidate import Candidate
 from ..sandbox.sandbox import ProcessSandbox
